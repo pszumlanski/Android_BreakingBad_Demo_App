@@ -59,7 +59,7 @@ class FeedActivity : AppCompatActivity(), DataFetchingCallback {
         val layoutManager = LinearLayoutManager(this)
         main_feed_recyclerview.layoutManager = layoutManager
         main_feed_recyclerview.adapter = CharactersListAdapter(this) { selectedCharacterId: Int ->
-            displayDetailedView(selectedCharacterId)
+//            displayDetailedView(selectedCharacterId)
         }
     }
 
