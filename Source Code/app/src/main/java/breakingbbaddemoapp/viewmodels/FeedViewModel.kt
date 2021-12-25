@@ -7,6 +7,7 @@ import breakingbbaddemoapp.utils.DataFetchingCallback
 import breakingbbaddemoapp.models.SimplifiedCharacterObject
 import breakingbbaddemoapp.network.ApiClient
 import breakingbbaddemoapp.utils.FilteringTools
+import redditandroidapp.data.network.PostGsonModel
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -15,23 +16,63 @@ import javax.inject.Inject
 class FeedViewModel @Inject constructor(private val apiClient: ApiClient, private val filteringTools: FilteringTools)
     : ViewModel() {
 
-    private var cachedAllCharactersList: List<SimplifiedCharacterObject>? = null
+//    private var cachedAllCharactersList: List<SimplifiedCharacterObject>? = null
+//
+//    fun getCharacters(callback: DataFetchingCallback, filterNamePhrase: String?, filterSeason: Int?) {
+//
+//        if (cachedAllCharactersList != null) {
+//            var results = cachedAllCharactersList!!
+//            results = filteringTools.filterResults(results, filterNamePhrase, filterSeason)
+//            callback.fetchingSuccessful(results)
+//        } else {
+//            apiClient.getAllCharacters().enqueue(object: Callback<List<SimplifiedCharacterObject>> {
+//
+//                override fun onResponse(call: Call<List<SimplifiedCharacterObject>>?,
+//                                        response: Response<List<SimplifiedCharacterObject>>?
+//                ) {
+//                    response?.let {
+//                        if (it.isSuccessful && it.body() != null) {
+//                            cachedAllCharactersList = it.body()
+//
+//                            var results = it.body()!!
+//                            results = filteringTools.filterResults(results, filterNamePhrase, filterSeason)
+//                            callback.fetchingSuccessful(results)
+//                        } else {
+//                            callback.fetchingError()
+//                            it.errorBody()?.let {
+//                                Log.e(LogTags.NETWORK_ERROR, it.string())
+//                            }
+//                        }
+//                    }
+//                }
+//
+//                override fun onFailure(call: Call<List<SimplifiedCharacterObject>>?, t: Throwable?) {
+//                    callback.fetchingError()
+//                    t?.let {
+//                        Log.e(LogTags.NETWORK_ERROR, it.message)
+//                    }
+//                }
+//            })
+//        }
+//    }
 
-    fun getCharacters(callback: DataFetchingCallback, filterNamePhrase: String?, filterSeason: Int?) {
+    private var cachedAllPostsList: List<PostGsonModel>? = null
 
-        if (cachedAllCharactersList != null) {
-            var results = cachedAllCharactersList!!
+    fun getPosts(callback: DataFetchingCallback, filterNamePhrase: String?, filterSeason: Int?) {
+
+        if (cachedAllPostsList != null) {
+            var results = cachedAllPostsList!!
             results = filteringTools.filterResults(results, filterNamePhrase, filterSeason)
             callback.fetchingSuccessful(results)
         } else {
-            apiClient.getAllCharacters().enqueue(object: Callback<List<SimplifiedCharacterObject>> {
+            apiClient.getAllCharacters().enqueue(object: Callback<List<PostGsonModel>> {
 
-                override fun onResponse(call: Call<List<SimplifiedCharacterObject>>?,
-                                        response: Response<List<SimplifiedCharacterObject>>?
+                override fun onResponse(call: Call<List<PostGsonModel>>?,
+                                        response: Response<List<PostGsonModel>>?
                 ) {
                     response?.let {
                         if (it.isSuccessful && it.body() != null) {
-                            cachedAllCharactersList = it.body()
+                            cachedAllPostsList = it.body()
 
                             var results = it.body()!!
                             results = filteringTools.filterResults(results, filterNamePhrase, filterSeason)
@@ -45,7 +86,7 @@ class FeedViewModel @Inject constructor(private val apiClient: ApiClient, privat
                     }
                 }
 
-                override fun onFailure(call: Call<List<SimplifiedCharacterObject>>?, t: Throwable?) {
+                override fun onFailure(call: Call<List<PostGsonModel>>?, t: Throwable?) {
                     callback.fetchingError()
                     t?.let {
                         Log.e(LogTags.NETWORK_ERROR, it.message)

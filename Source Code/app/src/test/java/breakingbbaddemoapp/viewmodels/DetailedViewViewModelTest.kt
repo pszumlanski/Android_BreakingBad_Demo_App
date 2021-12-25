@@ -58,7 +58,7 @@ class DetailedViewViewModelTest {
         val fakeCallback: DataFetchingCallback = Mockito.mock(DataFetchingCallback::class.java)
 
         // Perform the action
-        viewModel!!.getSelectedCharacter(fakeCallback, fakeSingleCharacterId!!)
+//        viewModel!!.getSelectedCharacter(fakeCallback, fakeSingleCharacterId!!)
 
         // Check whether correct callback method has been called
         Mockito.verify(fakeCallback).fetchingSuccessful(fakeSingleCharacterObject!!)
