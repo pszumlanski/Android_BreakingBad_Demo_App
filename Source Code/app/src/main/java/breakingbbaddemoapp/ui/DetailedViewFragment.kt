@@ -10,6 +10,8 @@ import androidx.lifecycle.ViewModelProviders
 import breakingbbaddemoapp.R
 import breakingbbaddemoapp.dependencyinjection.BreakingBadDemoApp
 import breakingbbaddemoapp.models.CompleteCharacterObject
+import breakingbbaddemoapp.models.PostGsonModel
+import breakingbbaddemoapp.models.PostsResponseGsonModel
 import breakingbbaddemoapp.utils.DataFetchingCallback
 import breakingbbaddemoapp.utils.StringFormatter
 import breakingbbaddemoapp.viewmodels.DetailedViewViewModel
@@ -61,7 +63,7 @@ class DetailedViewFragment : Fragment(), DataFetchingCallback {
 
     // UI setup methods
 
-    private fun setViewState(state: String, characterObject: CompleteCharacterObject? = null) {
+    private fun setViewState(state: String, characterObject: PostGsonModel? = null) {
         when(state) {
             STATE_LOADING_ERROR -> setupLoadingErrorView()
             STATE_CONTENT_LOADED -> characterObject?.let { setupContentLoadedView(it) }
@@ -74,47 +76,16 @@ class DetailedViewFragment : Fragment(), DataFetchingCallback {
         }
     }
 
-    private fun setupContentLoadedView(characterObject: CompleteCharacterObject) {
+    private fun setupContentLoadedView(postObject: PostGsonModel) {
         progressBar.visibility = View.GONE
         imageView_picture.let {
             Glide.with(this)
-                .load(characterObject.imageUrl)
+                .load(postObject.thumbnail)
                 .into(it)
         }
-        textView_name.text = characterObject.name
-        textView_nickname.text = characterObject.nickname
         context?.let {
-            textView_category.text = stringFormatter.formatBaseAndValueString(
-                it.getString(R.string.category),
-                characterObject.category
-            )
-            textView_breakingBadSeasonAppearance.text = stringFormatter.formatListString(
-                it.getString(R.string.breaking_bad_seasons_appearance),
-                it.getString(R.string.none),
-                characterObject.breakingBadSeasonAppearance
-            )
-            textView_betterCallSaulSeasonAppearance.text = stringFormatter.formatListString(
-                it.getString(R.string.better_call_saul_seasons_appearance),
-                it.getString(R.string.none),
-                characterObject.betterCallSaulSeasonAppearance
-            )
-            textView_birthday.text = stringFormatter.formatBaseAndValueString(
-                it.getString(R.string.birthday),
-                characterObject.birthday
-            )
-            textView_occupations.text = stringFormatter.formatListString(
-                it.getString(R.string.occupations),
-                it.getString(R.string.none),
-                characterObject.occupations
-            )
-            textView_status.text = stringFormatter.formatBaseAndValueString(
-                it.getString(R.string.status),
-                characterObject.status
-            )
-            textView_portrayed.text = stringFormatter.formatBaseAndValueString(
-                it.getString(R.string.portrayed_by),
-                characterObject.portrayed
-            )
+            textView_name.text = postObject.title
+            textView_nickname.text = postObject.author
         }
     }
 
@@ -122,9 +93,9 @@ class DetailedViewFragment : Fragment(), DataFetchingCallback {
     // Data fetching methods
 
     private fun fetchSelectedCharacter() {
-        val selectedCharacterId = this.arguments?.getInt("selectedCharacterId")
-        selectedCharacterId?.let {
-//            viewModel.getSelectedCharacter(this, it)
+        val selectedPostId = this.arguments?.getString("selectedPostId")
+        selectedPostId?.let {
+            viewModel.getSelectedCharacter(this, it)
         }
     }
 
@@ -132,7 +103,7 @@ class DetailedViewFragment : Fragment(), DataFetchingCallback {
     // Data Fetching Callback interface methods
 
     override fun fetchingSuccessful(payload: Any) {
-        if ((payload as? CompleteCharacterObject) != null) {
+        if ((payload as? PostGsonModel) != null) {
             setViewState(STATE_CONTENT_LOADED, payload)
         } else {
             setViewState(STATE_LOADING_ERROR)

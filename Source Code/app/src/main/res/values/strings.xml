@@ -1,7 +1,7 @@
 <resources>
 
     <string name="app_name">Breaking Bad Demo App</string>
-
+    <string name="no_thumbnail">https://toppng.com/uploads/preview/reddit-icon-reddit-logo-transparent-115628752708pqmsy4kgm.png</string>
     <string name="loading">Loading…</string>
     <string name="loading_problem_check_the_internet_connection">Loading problem. Check the Internet connection please.</string>
     <string name="try_again">Try again</string>

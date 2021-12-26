@@ -59,8 +59,8 @@ class FeedActivity : AppCompatActivity(), DataFetchingCallback {
     private fun setupRecyclerView() {
         val layoutManager = LinearLayoutManager(this)
         main_feed_recyclerview.layoutManager = layoutManager
-        main_feed_recyclerview.adapter = CharactersListAdapter(this) { selectedCharacterId: Int ->
-//            displayDetailedView(selectedCharacterId)
+        main_feed_recyclerview.adapter = CharactersListAdapter(this) { selectedPostId: String ->
+            displayDetailedView(selectedPostId)
         }
     }
 
@@ -85,23 +85,23 @@ class FeedActivity : AppCompatActivity(), DataFetchingCallback {
     }
 
     private fun setupSearchPanel() {
-//        setupSeasonDropdown()
-//
-//        btn_search.setOnClickListener {
-//            val searchNamePhrase = search_engine.text.toString()
-//            val seasonNumber = seasons_dropdown.selectedItemPosition
-//            setViewState(STATE_FILTERING_IN_PROGRESS)
-//            updateCharacters(searchNamePhrase, seasonNumber)
-//        }
+        setupSeasonDropdown()
+
+        btn_search.setOnClickListener {
+            val searchTitle = search_engine.text.toString()
+            val searchAuthor = search_engine.text.toString()
+            setViewState(STATE_FILTERING_IN_PROGRESS)
+            updateCharacters(searchTitle, searchAuthor)
+        }
     }
 
 
     // UI management methods
 
-    private fun displayDetailedView(selectedCharacterId: Int) {
+    private fun displayDetailedView(selectedPostId: String) {
         val fragment = DetailedViewFragment()
         val bundle = Bundle()
-        bundle.putInt("selectedCharacterId", selectedCharacterId)
+        bundle.putString("selectedPostId", selectedPostId)
         fragment.arguments = bundle
 
         val fragmentTransaction = supportFragmentManager.beginTransaction()

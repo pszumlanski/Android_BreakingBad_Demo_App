@@ -15,7 +15,7 @@ import kotlinx.android.synthetic.main.main_feed_list_item.view.*
 // Main adapter used for managing main feed list within the main Recycler View
 class CharactersListAdapter(val context: Context,
                             val stringFormatter: StringFormatter = StringFormatter(),
-                            val clickListener: (Int) -> Unit
+                            val clickListener: (String) -> Unit
 ) : RecyclerView.Adapter<CharactersListAdapter.ViewHolder>() {
 
     private var items: List<SinglePostDataGsonModel> = ArrayList()
@@ -38,28 +38,37 @@ class CharactersListAdapter(val context: Context,
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
         // Prepare fetched data
+        val id = items[position].post.id
         val permalink = items[position].post.permalink
         val title = items[position].post.title
         val thumbnail = items[position].post.thumbnail
+        val noThumbnail = context.getString(R.string.no_thumbnail)
         val author = items[position].post.author
-        val name = items[position].post.name
 
         // Set the data within the view
         (holder as? ItemViewHolder)?.name?.text = title
         (holder as? ItemViewHolder)?.nickname?.text = author
 
         // Load the picture
-//        (holder as? ItemViewHolder)?.let {
-//            Glide.with(context)
-//                .load(pictureUrl)
-//                .into(it.picture)
-//        }
+        if(thumbnail == "self") {
+            (holder as? ItemViewHolder)?.let {
+                Glide.with(context)
+                    .load(noThumbnail)
+                    .into(it.picture)
+            }
+        } else {
+            (holder as? ItemViewHolder)?.let {
+                Glide.with(context)
+                    .load(thumbnail)
+                    .into(it.picture)
+            }
+        }
 
         // Set the onClickListener
-//        (holder as? ItemViewHolder)?.container?.setOnClickListener{
-//            val itemId = items[position].id
-//            clickListener(itemId)
-//        }
+        (holder as? ItemViewHolder)?.container?.setOnClickListener{
+            val itemId = items[position].post.id
+            clickListener(itemId)
+        }
     }
 
     abstract class ViewHolder (view: View) : RecyclerView.ViewHolder(view)
