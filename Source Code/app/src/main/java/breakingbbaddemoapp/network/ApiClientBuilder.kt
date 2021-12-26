@@ -9,30 +9,17 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object ApiClientBuilder {
 
-//    fun apiClient(): ApiClient {
-//        val builder = Builder()
-//
-//        // Create Retrofit instance to operate API calls
-//        val retrofit = Retrofit.Builder()
-//                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-//                .addConverterFactory(GsonConverterFactory.create())
-//                .baseUrl(NetworkConstants.BASE_URL)
-//                .client(builder.build())
-//                .build()
-//
-//        return retrofit.create(ApiClient::class.java)
-//    }
     fun apiClient(): ApiClient {
         val builder = Builder()
 
         // Create Retrofit instance to operate API calls
         val retrofit = Retrofit.Builder()
-            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-            .addConverterFactory(GsonConverterFactory.create())
-            .baseUrl(NetworkConstants.BASE_URL)
-            .client(builder.build())
-            .build()
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
+                .baseUrl(NetworkConstants.BASE_URL)
+                .client(builder.build())
+                .build()
 
         return retrofit.create(ApiClient::class.java)
-}
+    }
 }

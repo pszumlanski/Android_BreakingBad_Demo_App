@@ -1,6 +1,7 @@
 package breakingbbaddemoapp.utils
 
 import breakingbbaddemoapp.constants.SeriesSpecificConstants
+import breakingbbaddemoapp.models.PostGsonModel
 import breakingbbaddemoapp.models.SimplifiedCharacterObject
 
 class FilteringTools {
@@ -37,4 +38,33 @@ class FilteringTools {
             return list
         }
     }
+
+    fun filterResults2(list2: List<PostGsonModel>,
+                       filterTitle: String?,
+                       filterAuthor: String?
+    ): List<PostGsonModel> {
+        val newList2 = filterResultsByTitle(list2, filterTitle)
+        return filterResultsByAuthor(newList2, filterAuthor)
+    }
+
+    private fun filterResultsByTitle(list2: List<PostGsonModel>,
+                                    filterTitle: String?
+    ): List<PostGsonModel> {
+        if (!filterTitle.isNullOrEmpty()) {
+            return list2.filter { (it.name.toLowerCase()).contains(filterTitle.toLowerCase()) }
+        } else {
+            return list2
+        }
+    }
+
+    private fun filterResultsByAuthor(list2: List<PostGsonModel>,
+                                     filterAuthor: String?
+    ): List<PostGsonModel> {
+        if (!filterAuthor.isNullOrEmpty()) {
+            return list2.filter { (it.name.toLowerCase()).contains(filterAuthor.toLowerCase()) }
+        } else {
+            return list2
+        }
+    }
+
 }
