@@ -13,6 +13,7 @@ import breakingbbaddemoapp.constants.SeriesSpecificConstants
 import breakingbbaddemoapp.utils.DataFetchingCallback
 import breakingbbaddemoapp.dependencyinjection.BreakingBadDemoApp
 import breakingbbaddemoapp.models.SimplifiedCharacterObject
+import breakingbbaddemoapp.models.SinglePostDataGsonModel
 import breakingbbaddemoapp.viewmodels.FeedViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main_top_panel.*
@@ -84,14 +85,14 @@ class FeedActivity : AppCompatActivity(), DataFetchingCallback {
     }
 
     private fun setupSearchPanel() {
-        setupSeasonDropdown()
-
-        btn_search.setOnClickListener {
-            val searchNamePhrase = search_engine.text.toString()
-            val seasonNumber = seasons_dropdown.selectedItemPosition
-            setViewState(STATE_FILTERING_IN_PROGRESS)
-            updateCharacters(searchNamePhrase, seasonNumber)
-        }
+//        setupSeasonDropdown()
+//
+//        btn_search.setOnClickListener {
+//            val searchNamePhrase = search_engine.text.toString()
+//            val seasonNumber = seasons_dropdown.selectedItemPosition
+//            setViewState(STATE_FILTERING_IN_PROGRESS)
+//            updateCharacters(searchNamePhrase, seasonNumber)
+//        }
     }
 
 
@@ -109,7 +110,7 @@ class FeedActivity : AppCompatActivity(), DataFetchingCallback {
             .commit()
     }
 
-    private fun loadItemsIntoList(items: List<SimplifiedCharacterObject>) {
+    private fun loadItemsIntoList(items: List<SinglePostDataGsonModel>) {
         (main_feed_recyclerview.adapter as CharactersListAdapter).setItems(items)
     }
 
@@ -149,18 +150,18 @@ class FeedActivity : AppCompatActivity(), DataFetchingCallback {
     // Data fetching methods
 
     private fun fetchCharacters() {
-        viewModel.getCharacters(this, null, null)
+        viewModel.getPosts(this, null, null)
     }
 
-    private fun updateCharacters(filterNamePhrase: String?, filterSeason: Int?) {
-        viewModel.getCharacters(this, filterNamePhrase, filterSeason)
+    private fun updateCharacters(filterTitle: String?, filterAuthor: String?) {
+        viewModel.getPosts(this, filterTitle, filterAuthor)
     }
 
 
     // Data Fetching Callback interface methods
 
     override fun fetchingSuccessful(payload: Any) {
-        if ((payload as? List<SimplifiedCharacterObject>) != null) {
+        if ((payload as? List<SinglePostDataGsonModel>) != null) {
             loadItemsIntoList(payload)
             setViewState(STATE_CONTENT_LOADED)
         } else {

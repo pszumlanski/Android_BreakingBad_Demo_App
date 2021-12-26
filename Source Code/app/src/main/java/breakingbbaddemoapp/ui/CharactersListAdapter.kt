@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import breakingbbaddemoapp.R
 import breakingbbaddemoapp.models.SimplifiedCharacterObject
+import breakingbbaddemoapp.models.SinglePostDataGsonModel
 import breakingbbaddemoapp.utils.StringFormatter
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.main_feed_list_item.view.*
@@ -17,9 +18,9 @@ class CharactersListAdapter(val context: Context,
                             val clickListener: (Int) -> Unit
 ) : RecyclerView.Adapter<CharactersListAdapter.ViewHolder>() {
 
-    private var items: List<SimplifiedCharacterObject> = ArrayList()
+    private var items: List<SinglePostDataGsonModel> = ArrayList()
 
-    fun setItems(items: List<SimplifiedCharacterObject>) {
+    fun setItems(items: List<SinglePostDataGsonModel>) {
         this.items = items
         notifyDataSetChanged()
     }
@@ -37,38 +38,28 @@ class CharactersListAdapter(val context: Context,
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
         // Prepare fetched data
-        val pictureUrl = items[position].imageUrl
-        val name = items[position].name
-        val nickname = items[position].nickname
-        val breakingBadSeasonAppearance = stringFormatter.formatListString(
-            context.getString(R.string.breaking_bad_seasons_appearance),
-            context.getString(R.string.none),
-            items[position].breakingBadSeasonAppearance
-        )
-        val betterCallSaulSeasonAppearance = stringFormatter.formatListString(
-            context.getString(R.string.better_call_saul_seasons_appearance),
-            context.getString(R.string.none),
-            items[position].betterCallSaulSeasonAppearance
-        )
+        val permalink = items[position].post.permalink
+        val title = items[position].post.title
+        val thumbnail = items[position].post.thumbnail
+        val author = items[position].post.author
+        val name = items[position].post.name
 
         // Set the data within the view
-        (holder as? ItemViewHolder)?.name?.text = name
-        (holder as? ItemViewHolder)?.nickname?.text = nickname
-        (holder as? ItemViewHolder)?.breakingBadSeasonAppearance?.text = breakingBadSeasonAppearance
-        (holder as? ItemViewHolder)?.betterCallSaulSeasonAppearance?.text = betterCallSaulSeasonAppearance
+        (holder as? ItemViewHolder)?.name?.text = title
+        (holder as? ItemViewHolder)?.nickname?.text = author
 
         // Load the picture
-        (holder as? ItemViewHolder)?.let {
-            Glide.with(context)
-                .load(pictureUrl)
-                .into(it.picture)
-        }
+//        (holder as? ItemViewHolder)?.let {
+//            Glide.with(context)
+//                .load(pictureUrl)
+//                .into(it.picture)
+//        }
 
         // Set the onClickListener
-        (holder as? ItemViewHolder)?.container?.setOnClickListener{
-            val itemId = items[position].id
-            clickListener(itemId)
-        }
+//        (holder as? ItemViewHolder)?.container?.setOnClickListener{
+//            val itemId = items[position].id
+//            clickListener(itemId)
+//        }
     }
 
     abstract class ViewHolder (view: View) : RecyclerView.ViewHolder(view)

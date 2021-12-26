@@ -3,7 +3,7 @@ package breakingbbaddemoapp.viewmodels
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import breakingbbaddemoapp.constants.LogTags
-import breakingbbaddemoapp.models.PostGsonModel
+import breakingbbaddemoapp.models.PostsResponseGsonModel
 import breakingbbaddemoapp.models.SimplifiedCharacterObject
 import breakingbbaddemoapp.utils.DataFetchingCallback
 import breakingbbaddemoapp.network.ApiClient
@@ -56,27 +56,27 @@ class FeedViewModel @Inject constructor(private val apiClient: ApiClient, privat
         }
     }
 
-    private var cachedAllPostsList: List<PostGsonModel>? = null
+    private var cachedAllPostsList: PostsResponseGsonModel? = null
 
     fun getPosts(callback: DataFetchingCallback, filterTitle: String?, filterAuthor: String?) {
 
         if (cachedAllPostsList != null) {
             var results = cachedAllPostsList!!
-            results = filteringTools.filterResults2(results, filterTitle, filterAuthor)
-            callback.fetchingSuccessful(results)
+            var results2 = filteringTools.filterResults2(results.data.childrenPosts, filterTitle, filterAuthor)
+            callback.fetchingSuccessful(results2)
         } else {
-            apiClient.getFreshPosts().enqueue(object: Callback<List<PostGsonModel>> {
+            apiClient.getFreshPosts().enqueue(object: Callback<PostsResponseGsonModel> {
 
-                override fun onResponse(call: Call<List<PostGsonModel>>?,
-                                        response: Response<List<PostGsonModel>>?
+                override fun onResponse(call: Call<PostsResponseGsonModel>?,
+                                        response: Response<PostsResponseGsonModel>?
                 ) {
                     response?.let {
                         if (it.isSuccessful && it.body() != null) {
                             cachedAllPostsList = it.body()
 
                             var results = it.body()!!
-                            results = filteringTools.filterResults2(results, filterTitle, filterAuthor)
-                            callback.fetchingSuccessful(results)
+                            var results2 = filteringTools.filterResults2(results.data.childrenPosts, filterTitle, filterAuthor)
+                            callback.fetchingSuccessful(results2)
                         } else {
                             callback.fetchingError()
                             it.errorBody()?.let {
@@ -86,7 +86,7 @@ class FeedViewModel @Inject constructor(private val apiClient: ApiClient, privat
                     }
                 }
 
-                override fun onFailure(call: Call<List<PostGsonModel>>?, t: Throwable?) {
+                override fun onFailure(call: Call<PostsResponseGsonModel>?, t: Throwable?) {
                     callback.fetchingError()
                     t?.let {
                         Log.e(LogTags.NETWORK_ERROR, it.message)
