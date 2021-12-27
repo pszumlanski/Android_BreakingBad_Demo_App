@@ -16,7 +16,7 @@
         android:clipToPadding="false">
     
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/imageView_picture"
+        android:id="@+id/imageView_thumbnail"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintDimensionRatio="1:1"
@@ -35,35 +35,21 @@
         android:layout_marginStart="@dimen/list_item_internal_spacing"
         android:orientation="vertical"
 
-        app:layout_constraintStart_toEndOf="@id/imageView_picture"
+        app:layout_constraintStart_toEndOf="@id/imageView_thumbnail"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/textView_name"
+            android:id="@+id/textView_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="@dimen/text_size_big"/>
 
         <TextView
-            android:id="@+id/textView_nickname"
+            android:id="@+id/textView_author"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/list_item_name_nickname_spacing"
-            android:textSize="@dimen/text_size_main"/>
-
-        <TextView
-            android:id="@+id/textView_breakingBadSeasonAppearance"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/list_item_nickname_appearance_spacing"
-            android:textSize="@dimen/text_size_main"/>
-
-        <TextView
-            android:id="@+id/textView_betterCallSaulSeasonAppearance"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/list_item_nickname_appearance_spacing"
             android:textSize="@dimen/text_size_main"/>
 
     </LinearLayout>

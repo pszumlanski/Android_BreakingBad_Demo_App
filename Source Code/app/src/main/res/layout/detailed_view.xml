@@ -46,7 +46,7 @@
                     android:layout_height="wrap_content">
 
                     <de.hdodenhof.circleimageview.CircleImageView
-                        android:id="@+id/imageView_picture"
+                        android:id="@+id/imageView_thumbnail"
                         android:layout_width="0dp"
                         android:layout_height="0dp"
                         app:layout_constraintDimensionRatio="1:1"
@@ -60,7 +60,7 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <TextView
-                    android:id="@+id/textView_name"
+                    android:id="@+id/textView_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/detailed_view_internal_vertical_bigger_spacing"
@@ -68,60 +68,11 @@
                     android:textSize="@dimen/text_size_big"/>
 
                 <TextView
-                    android:id="@+id/textView_nickname"
+                    android:id="@+id/textView_author"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/detailed_view_internal_vertical_spacing"
                     android:textAlignment="center"
-                    android:textSize="@dimen/text_size_main"/>
-
-                <TextView
-                    android:id="@+id/textView_category"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/detailed_view_internal_vertical_spacing"
-                    android:textSize="@dimen/text_size_main"/>
-
-                <TextView
-                    android:id="@+id/textView_breakingBadSeasonAppearance"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/detailed_view_internal_vertical_spacing"
-                    android:textSize="@dimen/text_size_main"/>
-
-                <TextView
-                    android:id="@+id/textView_betterCallSaulSeasonAppearance"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/detailed_view_internal_vertical_spacing"
-                    android:textSize="@dimen/text_size_main"/>
-
-                <TextView
-                    android:id="@+id/textView_birthday"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/detailed_view_internal_vertical_spacing"
-                    android:textSize="@dimen/text_size_main"/>
-
-                <TextView
-                    android:id="@+id/textView_occupations"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/detailed_view_internal_vertical_spacing"
-                    android:textSize="@dimen/text_size_main"/>
-
-                <TextView
-                    android:id="@+id/textView_status"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/detailed_view_internal_vertical_spacing"
-                    android:textSize="@dimen/text_size_main"/>
-
-                <TextView
-                    android:id="@+id/textView_portrayed"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/detailed_view_internal_vertical_spacing"
                     android:textSize="@dimen/text_size_main"/>
 
             </LinearLayout>
