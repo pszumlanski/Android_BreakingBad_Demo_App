@@ -34,8 +34,8 @@ class FeedViewModel @Inject constructor(private val apiClient: ApiClient, privat
                             cachedAllPostsList = it.body()
 
                             var results = it.body()!!
-                            var results2 = filteringTools.filterResults(results.data.childrenPosts, filterTitle, filterAuthor)
-                            callback.fetchingSuccessful(results2)
+                            var filteredResults = filteringTools.filterResults(results.data.childrenPosts, filterTitle, filterAuthor)
+                            callback.fetchingSuccessful(filteredResults)
                         } else {
                             callback.fetchingError()
                             it.errorBody()?.let {
