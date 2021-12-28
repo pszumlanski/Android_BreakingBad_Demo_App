@@ -17,12 +17,12 @@ class FeedViewModel @Inject constructor(private val apiClient: ApiClient, privat
 
     private var cachedAllPostsList: PostsResponseGsonModel? = null
 
-    fun getPosts(callback: DataFetchingCallback, filterTitle: String?, filterAuthor: String?) {
+    fun getPosts(callback: DataFetchingCallback, filterTitle: String?) {
 
         if (cachedAllPostsList != null) {
             var results = cachedAllPostsList!!
-            var results2 = filteringTools.filterResults(results.data.childrenPosts, filterTitle, filterAuthor)
-            callback.fetchingSuccessful(results2)
+            var filteredResults = filteringTools.filterResults(results.data.childrenPosts, filterTitle)
+            callback.fetchingSuccessful(filteredResults)
         } else {
             apiClient.getFreshPosts().enqueue(object: Callback<PostsResponseGsonModel> {
 
@@ -34,7 +34,7 @@ class FeedViewModel @Inject constructor(private val apiClient: ApiClient, privat
                             cachedAllPostsList = it.body()
 
                             var results = it.body()!!
-                            var filteredResults = filteringTools.filterResults(results.data.childrenPosts, filterTitle, filterAuthor)
+                            var filteredResults = filteringTools.filterResults(results.data.childrenPosts, filterTitle)
                             callback.fetchingSuccessful(filteredResults)
                         } else {
                             callback.fetchingError()

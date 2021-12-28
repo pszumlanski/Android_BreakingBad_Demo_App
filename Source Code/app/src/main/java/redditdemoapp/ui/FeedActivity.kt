@@ -126,11 +126,11 @@ class FeedActivity : AppCompatActivity(), DataFetchingCallback {
     // Data fetching methods
 
     private fun fetchPosts() {
-        viewModel.getPosts(this, null, null)
+        viewModel.getPosts(this, null)
     }
 
     private fun updatePosts(filterTitle: String?, filterAuthor: String?) {
-        viewModel.getPosts(this, filterTitle, filterAuthor)
+        viewModel.getPosts(this, filterTitle)
     }
 
 

@@ -5,12 +5,9 @@ import redditdemoapp.models.SinglePostDataGsonModel
 class FilteringTools {
 
     fun filterResults(list: List<SinglePostDataGsonModel>,
-                      filterTitle: String?,
-                      filterAuthor: String?
+                      filterTitle: String?
     ): List<SinglePostDataGsonModel> {
-        val titleList = filterResultsByTitle(list, filterTitle)
-        val authorList = filterResultsByAuthor(list, filterAuthor)
-        return titleList.plus(authorList)
+        return filterResultsByTitle(list, filterTitle)
     }
 
     private fun filterResultsByTitle(list: List<SinglePostDataGsonModel>,
@@ -22,15 +19,4 @@ class FilteringTools {
             return list
         }
     }
-
-    private fun filterResultsByAuthor(list: List<SinglePostDataGsonModel>,
-                                     filterAuthor: String?
-    ): List<SinglePostDataGsonModel> {
-        if (!filterAuthor.isNullOrEmpty()) {
-            return list.filter { (it.post.author.toLowerCase()).contains(filterAuthor.toLowerCase()) }
-        } else {
-            return list
-        }
-    }
-
 }
