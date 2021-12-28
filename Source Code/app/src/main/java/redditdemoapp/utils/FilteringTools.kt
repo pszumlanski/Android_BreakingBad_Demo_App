@@ -8,8 +8,9 @@ class FilteringTools {
                       filterTitle: String?,
                       filterAuthor: String?
     ): List<SinglePostDataGsonModel> {
-        val newList = filterResultsByTitle(list, filterTitle)
-        return filterResultsByAuthor(newList, filterAuthor)
+        val titleList = filterResultsByTitle(list, filterTitle)
+        val authorList = filterResultsByAuthor(list, filterAuthor)
+        return titleList.plus(authorList)
     }
 
     private fun filterResultsByTitle(list: List<SinglePostDataGsonModel>,
@@ -26,7 +27,7 @@ class FilteringTools {
                                      filterAuthor: String?
     ): List<SinglePostDataGsonModel> {
         if (!filterAuthor.isNullOrEmpty()) {
-            return list.filter { (it.post.title.toLowerCase()).contains(filterAuthor.toLowerCase()) }
+            return list.filter { (it.post.author.toLowerCase()).contains(filterAuthor.toLowerCase()) }
         } else {
             return list
         }

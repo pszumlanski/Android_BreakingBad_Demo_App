@@ -11,7 +11,6 @@ import redditdemoapp.R
 import redditdemoapp.dependencyinjection.RedditDemoApp
 import redditdemoapp.models.PostGsonModel
 import redditdemoapp.utils.DataFetchingCallback
-import redditdemoapp.utils.StringFormatter
 import redditdemoapp.viewmodels.DetailedViewViewModel
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.detailed_view.*
@@ -23,9 +22,6 @@ class DetailedViewFragment : Fragment(), DataFetchingCallback {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
     private lateinit var viewModel: DetailedViewViewModel
-
-    @Inject
-    lateinit var stringFormatter: StringFormatter
 
     private val STATE_LOADING_ERROR = "STATE_LOADING_ERROR"
     private val STATE_CONTENT_LOADED = "STATE_CONTENT_LOADED"

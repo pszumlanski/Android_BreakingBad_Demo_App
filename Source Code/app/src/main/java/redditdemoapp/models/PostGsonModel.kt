@@ -13,9 +13,11 @@ data class PostGsonModel(
     @SerializedName("title")
     val title: String,
 
-    @SerializedName("thumbnail")
-    val thumbnail: String,
-
     @SerializedName("author")
-    val author: String
+    val author: String,
+
+    @SerializedName("thumbnail")
+    val thumbnail: String
+
+
 )
