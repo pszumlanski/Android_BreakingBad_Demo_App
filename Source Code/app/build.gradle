@@ -4,11 +4,11 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion 29
     defaultConfig {
         applicationId "development.dreamcatcher.newsdemoapp"
         minSdkVersion 21
-        targetSdkVersion 28
+        targetSdkVersion 29
         versionCode 2
         versionName "1.1"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -31,7 +31,7 @@ dependencies {
     def javax_annotation_version = '3.1.1'
     def google_material_version = '1.2.1'
     def junit_version = '4.13'
-    def mockito_core_version = '2.19.0'
+    def mockito_core_version = '2.22.0'
     def mockito_inline_version = '2.13.0'
     def core_testing_version = '1.1.1'
     def espresso_version = '3.3.0'
@@ -72,6 +72,7 @@ dependencies {
     testImplementation "org.mockito:mockito-core:$mockito_core_version"
     testImplementation "org.mockito:mockito-inline:$mockito_inline_version"
     testImplementation "android.arch.core:core-testing:$core_testing_version"
+    implementation group: "org.mockito", name: "mockito-core", version: "$mockito_core_version"
 
     // UI Testing
     androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_version"
